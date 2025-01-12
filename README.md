@@ -1,7 +1,6 @@
 ### 概要
 - GiNZAを利用した日本語係り受け解析テストアプリ
-- 解析結果はpyvisで可視化しローカルに保存
-- Dockerコンテナを用いてローカル上に環境を作成
+- 解析結果はpyvisでHTMLドキュメントとして可視化
 
 ### 前提条件
 - Windows 11 Proマシン上で実行
@@ -32,19 +31,23 @@
     - しばらくするとページ下部にダウンロードリンクが追加される。
 
 ### アプリ構成
-下記Dockerのサービスから構成される。それぞれgRPCを用いてコンテナ間で通信する。
+下記Dockerのサービスから構成される。
 1. ### webui_service
     - FastAPIによるWebアプリ
+    - APIドキュメントは(```http://localhost:8080/docs```)を確認
+    - フロントエンド
+        - 言語: HTML, JavaScript
+        - CSSフレームワーク: BootStrap 5.3.0
     - バックエンド
-        - 言語: python
-        - 可視化ツール: pyvis
-        - 
+        - 言語: Python 3.9.21
+        - 可視化ツール: pyvis 0.3.2
+        - コンテナ間通信: gRPC 1.69.0
     - クライアントとしてginza_serviceとgRPC通信
-    - CSSフレームワーク: Bootstrap
     - その他ライブラリは```docker/webui/```を参照
 1. ### ginza_service
     - GiNZAで係り受け分析を実行
-    - 実行言語: python
+    - サービス
+        - 言語: Python 3.9.21
+        - コンテナ間通信: gRPC 1.69.0
     - サーバーとしてwebui_serviceとgRPC通信
-    - 
     - その他ライブラリは```docker/GiNZA/```を参照

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="jp" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <title>DEMO</title>
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+</head>
+<body>
+    <script src="/static/bootstrap.bundle.min.js"></script>
+
+    <div class="card border-secondary mx-auto p-2" style="width: 70vw; margin-top: 0.5rem;">
+        <div class="card-body">
+            <h5 class="card-title">係り受け解析デモ</h5>
+
+            <div class="mb-3">
+                <label for="test_text" class="form-label">元文章：</label>
+                <textarea class="form-control" id="test_text" rows="3"></textarea>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button 
+                type="button" 
+                class="btn btn-primary" 
+                onclick="execute_dependency_parsing()">実行</button>
+            </div>
+
+            <div id="links"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    var url = "http://127.0.0.1:8080/";
+
+    async function execute_dependency_parsing(){
+        /**
+         * 係り受け解析のデモを実行
+         */
+        var test_text = document.getElementById('test_text').value;
+        // call API
+        const response = await fetch(url + "DependencyParsing", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                "source_text": test_text
+            })
+        }).then(result => result.json());
+
+        // ダウンロードリンクを作成
+        var new_link = document.createElement('a');
+        var br = document.createElement('br');
+        new_link.href = 'download/' + response.file_name;
+        new_link.innerText = response.file_name;
+        document.getElementById("links").appendChild(br);
+        document.getElementById("links").appendChild(new_link);
+    }
+</script>

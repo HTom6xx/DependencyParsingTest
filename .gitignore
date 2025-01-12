@@ -169,3 +169,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# extra
+data/
+app/webui/lib
+
+*_pb2_grpc.py
+*_pb2.py
+*_pb2.pyi

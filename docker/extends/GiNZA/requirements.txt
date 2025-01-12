@@ -1,0 +1,7 @@
+# GiNZA
+ginza==5.2.0
+ja-ginza==5.2.0
+
+# gRPC
+grpcio==1.69.0
+grpcio-tools==1.69.0

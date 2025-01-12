@@ -47,9 +47,10 @@
     - クライアントとしてginza_serviceとgRPC通信
     - その他ライブラリは```docker/webui/```を参照
 1. ### ginza_service
-    - GiNZAで係り受け分析を実行
+    - GiNZAによる係り受け解析を実行
     - サービス
         - 言語: Python 3.9.21
+        - 係り受け解析ツール: GiNZA 5.2.0
         - コンテナ間通信: gRPC 1.69.0
     - サーバーとしてwebui_serviceとgRPC通信
     - その他ライブラリは```docker/GiNZA/```を参照

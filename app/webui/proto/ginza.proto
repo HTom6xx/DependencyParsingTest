@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package text_analyzer_ginza;
+
+service GiNZAServiceServicer {
+    rpc DependencyParsing (DependencyParsingRequest) returns (DependencyParsingResponse);
+}
+
+message Word {
+    string ind = 1;
+    string word = 2;
+    string parent_ind = 3;
+}
+
+message DependencyParsingRequest {
+    string msg = 1;
+}
+
+message DependencyParsingResponse {
+    repeated Word res = 1;
+}

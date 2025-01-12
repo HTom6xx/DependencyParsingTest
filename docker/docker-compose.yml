@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  webui_service:
+    build:
+      context: ./webui
+    volumes:
+      - ../app/webui:/app
+      - ../data/cache:/cache
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 1m
+        max-file: "3"
+    working_dir: /app
+    ports:
+      - 8080:8080
+    entrypoint: >
+      bash -c "python3 grpc_make.py && uvicorn main:app --reload --host 0.0.0.0 --port 8080"
+
+  ginza_service:
+    build:
+      context: ./extends/GiNZA
+    volumes:
+      - ../app/extends/GiNZA:/app
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 1m
+        max-file: "3"
+    working_dir: /app
+    entrypoint: >
+      bash -c "python3 grpc_make.py && python3 main.py"
